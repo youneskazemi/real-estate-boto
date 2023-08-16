@@ -7,5 +7,4 @@ async function connectDB() {
   console.log("Connected to Database!");
 }
 
-
-export default connectDB();
+export default connectDB;
