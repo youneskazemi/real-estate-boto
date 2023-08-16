@@ -1,4 +1,5 @@
-import Header from "./Header";
+import Header from "@/layout/Header";
+import Footer from "@/layout/Footer";
 
 function Layout({ children }) {
   const style = { minHeight: "700px" };
@@ -6,6 +7,7 @@ function Layout({ children }) {
     <>
       <Header />
       <div style={style}>{children}</div>
+      <Footer />
     </>
   );
 }
