@@ -1,6 +1,6 @@
 "use client";
 
-import { ThreeDots } from "react-loader-spinner";
+
 import { useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import CustomDatePicker from "@/module/CustomDatePicker";
@@ -9,6 +9,7 @@ import TextInput from "@/module/TextInput";
 import TextList from "@/module/TextList";
 import styles from "@/template/AddProfilePage.module.css";
 import axios from "axios";
+import Loader from "../element/Loader";
 
 function AddProfilePage() {
   const [profileData, setProfileData] = useState({
@@ -114,13 +115,7 @@ function AddProfilePage() {
         setProfileData={setProfileData}
       />
       {loading ? (
-        <ThreeDots
-          color="#304ffe"
-          height={45}
-          ariaLabel="tail-spin-loading"
-          visible={true}
-          wrapperStyle={{ margin: "auto" }}
-        />
+        <Loader />
       ) : (
         <button className={styles.submit} onClick={submitHandler}>
           ثبت آگهی
