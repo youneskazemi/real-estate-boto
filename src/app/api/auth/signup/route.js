@@ -32,7 +32,10 @@ export async function POST(req) {
       password: hashedPassword,
     });
 
-    return NextResponse.json({ message: "حساب کاربری با موفقیت ایجاد شد!" });
+    return NextResponse.json(
+      { message: "حساب کاربری با موفقیت ایجاد شد!" },
+      { status: 201 }
+    );
   } catch (err) {
     console.log(err.message);
     return NextResponse.json(
