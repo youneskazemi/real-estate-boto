@@ -8,11 +8,6 @@ import { redirect } from "next/navigation";
 
 async function DashboardSidebar({ children }) {
   const session = await getServerSession(authOptions);
-
-  if (!session) {
-    redirect("/signin");
-  }
-
   return (
     <div className={styles.container}>
       <div className={styles.sidebar}>
