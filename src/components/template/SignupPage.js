@@ -43,7 +43,7 @@ function SignupPage() {
     }
     setLoading(false);
   };
-  
+
   return (
     <div className={styles.form}>
       <h4>فرم ثبت نام</h4>
@@ -64,8 +64,8 @@ function SignupPage() {
         />
         <label htmlFor="rePassword">تکرار رمزعبور:</label>
         <input
-          name="password"
-          type="rePassword"
+          name="rePassword"
+          type="password"
           value={rePassword}
           onChange={(e) => setRePassword(e.target.value)}
         />
