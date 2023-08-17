@@ -1,11 +1,14 @@
 "use client";
 
+import { ThreeDots } from "react-loader-spinner";
+import { useState } from "react";
+import toast, { Toaster } from "react-hot-toast";
 import CustomDatePicker from "@/module/CustomDatePicker";
 import RadioList from "@/module/RadioList";
 import TextInput from "@/module/TextInput";
 import TextList from "@/module/TextList";
 import styles from "@/template/AddProfilePage.module.css";
-import { useState } from "react";
+import axios from "axios";
 
 function AddProfilePage() {
   const [profileData, setProfileData] = useState({
@@ -21,8 +24,36 @@ function AddProfilePage() {
     amenities: [],
   });
 
-  const submitHandler = () => {
-    console.log(profileData);
+  const [loading, setLoading] = useState(false);
+
+  const submitHandler = async () => {
+    setLoading(true);
+    const url = "/api/profile";
+    const data = JSON.stringify(profileData);
+    const config = { headers: { "Content-Type": "application/json" } };
+    try {
+      const res = await axios.post(url, data, config);
+      if (res.status === 201) {
+        setProfileData({
+          title: "",
+          description: "",
+          location: "",
+          phone: "",
+          price: "",
+          realState: "",
+          constructionDate: new Date(),
+          category: "",
+          rules: [],
+          amenities: [],
+        });
+        toast.success(res.data.message);
+      }
+    } catch (error) {
+      const errorMessage =
+        error.response?.data?.error || "خطایی در سرور رخ داده است!";
+      toast.error(errorMessage);
+    }
+    setLoading(false);
   };
 
   return (
@@ -82,9 +113,21 @@ function AddProfilePage() {
         profileData={profileData}
         setProfileData={setProfileData}
       />
-      <button className={styles.submit} onClick={submitHandler}>
-        ثبت آگهی
-      </button>
+      {loading ? (
+        <ThreeDots
+          color="#304ffe"
+          height={45}
+          ariaLabel="tail-spin-loading"
+          visible={true}
+          wrapperStyle={{ margin: "auto" }}
+        />
+      ) : (
+        <button className={styles.submit} onClick={submitHandler}>
+          ثبت آگهی
+        </button>
+      )}
+
+      <Toaster />
     </div>
   );
 }
