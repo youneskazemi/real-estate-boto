@@ -7,13 +7,17 @@ import Card from "@/module/Card";
 import { useRouter } from "next/navigation";
 import axios from "axios";
 import { toast, Toaster } from "react-hot-toast";
+import { useState } from "react";
+import Loader from "../element/Loader";
 
 function DashboardCard({ data }) {
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
   const editHandler = () => {
     router.push(`/dashboard/my-profiles/${data._id}`);
   };
   const deleteHandler = async () => {
+    setLoading(true);
     const url = `/api/profile/delete/${data._id}`;
     const config = { hedaers: { "Content-Type": "application/json" } };
     try {
@@ -27,8 +31,11 @@ function DashboardCard({ data }) {
         error.response?.data?.error || "خطایی در سرور رخ داده است!";
       toast.error(errorMessage);
     }
+    setLoading(false);
   };
-  return (
+  return loading ? (
+    <Loader />
+  ) : (
     <div className={styles.container}>
       <Card data={data} />
       <div className={styles.main}>
@@ -41,6 +48,7 @@ function DashboardCard({ data }) {
           <AiOutlineDelete />
         </button>
       </div>
+
       <Toaster />
     </div>
   );
