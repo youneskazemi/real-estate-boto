@@ -7,6 +7,11 @@ import { redirect } from "next/dist/server/api-utils";
 import AdminPage from "@/template/AdminPage";
 import Profile from "@/models/Profile";
 
+export const metadata = {
+  title: "پنل ادمین املاک | پروژه بوتو استارت",
+  description: "ساخت خرید و فروش املاک",
+};
+
 async function Admin() {
   const session = await getServerSession(authOptions);
   if (!session) {
