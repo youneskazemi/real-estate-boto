@@ -9,7 +9,7 @@ export async function GET(req) {
   try {
     await connectDB();
 
-    const profiles = await Profile.find().select("-userId");
+    const profiles = await Profile.find({ published: true }).select("-userId");
 
     return NextResponse.json({ profiles }, { status: 200 });
   } catch (err) {
